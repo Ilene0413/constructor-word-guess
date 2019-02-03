@@ -41,7 +41,8 @@ let state = {
 console.log(`This game is similar to Hangman. You have to guess a random word. `);
 console.log(`The number of letters in the word is initially displayed as underscores`);
 console.log(`You have a maximum of 14 incorrect guesses. If you guess an incorrect letter more than once
-it will count as another incorrect guess`);
+it will count as another incorrect guess.\n\n`);
+
 
 // get a random word by calling selectRandom 
 //initialize word to be displayed by users guesses
