@@ -4,7 +4,7 @@ constructor word guess game
 A video of how the constructor-word-guess works can be found at https://drive.google.com/file/d/12hSqAh9EqDkx85wrBV-L5eWh8mpBf7oC/view
 
 http://github.com - automatic!
-[GitHub](https://drive.google.com/file/d/12hSqAh9EqDkx85wrBV-L5eWh8mpBf7oC/view)
+[GitHub](https://drive.google.com/file/d/1Qz86ebv89AKnK8ollmId2pLXgLguR4P7/view)
 
 **Constructor Word Guess** is a game similar to hangman. A player is given a word that they have to guess. They are showed the number
 of letters in the word by using underscores.  The player guesses a letter and the program will determine if the letter is in the word.
