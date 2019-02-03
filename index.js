@@ -36,9 +36,20 @@ let state = {
     playNewGame: true
 }
 
-// start playing the word guess 
-//
+//give player directions
+
+console.log(`This game is similar to Hangman. You have to guess a random word. `);
+console.log(`The number of letters in the word is initially displayed as underscores`);
+console.log(`You have a maximum of 14 incorrect guesses. If you guess an incorrect letter more than once
+it will count as another incorrect guess`);
+
+// get a random word by calling selectRandom 
+//initialize word to be displayed by users guesses
+
 state.randomWord = selectRandomWord();
+initDisplayWord(state.randomWord);
+
+//start playing the game
 
 playWordGuess();
 
@@ -77,20 +88,28 @@ function playWordGuess() {
             console.log("prompt error");
             return;
         };
+
+        //check if letter guessed is in word to be guessed, keep count of number of guesses left and number of letters correct
         state.displayArr = state.wordToGuess.guess(result.letter, state.numLettersGuessed, state.numGuessLeft);
+        state.numLettersGuessed = state.displayArr[1];
         state.numGuessLeft = state.displayArr[2];
+        state.numLettersGuessed = state.displayArr[1];
+
+        //display what user has guessed and not guessed
+
         displayUserGuesses = state.wordToGuess.toString(state.displayArr[0]);
 
         //check that user has not guessed the maximum number of incorrect guesses
         if (state.numGuessLeft === 0) {
             console.log("Sorry, You Lose");
+            console.log(`Correct word is ${state.randomWord}`);
             askToPlayAgain();
         }
         else {
 
             //check to see that not all the letters in the word were guessed
 
-            if (state.displayArr[1] < state.randomWord.length) {
+            if (state.numLettersGuessed < state.randomWord.length) {
                 playWordGuess();
             }
             else {
@@ -115,6 +134,9 @@ function selectRandomWord() {
 
     state.wordToGuess.storeWord(randomWord);
 
+    return randomWord;
+}
+function initDisplayWord(randomWord) {
     //initialize users word array to underscore and display it so user can see how many letters are in the word
     //initialize array 
     let initDisplay = [];
@@ -124,11 +146,6 @@ function selectRandomWord() {
     let display = initDisplay.toString();
     display = initDisplay.join(" ");
     console.log(`${display}\n`);
-//    state.displayArr = state.wordToGuess.guess("_", state.numLettersGuessed, state.numGuessLeft);
-//    state.wordToGuess.toString(state.displayArr[0]);
-//     console.log(initDisplay);
-
-    return randomWord;
 }
 
 function askToPlayAgain() {
@@ -151,6 +168,7 @@ function askToPlayAgain() {
             state.randomWord = selectRandomWord();
             state.numLettersGuessed = 0;
             state.numGuessLeft = 14;
+            initDisplayWord(state.randomWord);
             playWordGuess();
         }
         else {

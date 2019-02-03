@@ -4,7 +4,6 @@ var Letter = function (randomLetter, letterGuessed, letterCount) {
   this.wasLetterGuessed = false,
 
     this.guessCharacter = function (letterGuessed) {
-
       if (letterGuessed === this.underlyingChar) {
         this.wasLetterGuessed = true;
       }

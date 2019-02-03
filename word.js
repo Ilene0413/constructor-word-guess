@@ -3,6 +3,7 @@ let Letter = require("./letter.js");
 
 // Constructor function for creating Word objects
 let Word = function (randomWord, letterGuessed, letterCount) {
+
   // this.letters will hold the letters of the word or an 
   // an underscore to represent the missing letters that have
   //not been guessed
@@ -35,9 +36,10 @@ let Word = function (randomWord, letterGuessed, letterCount) {
   //return the user guesses in an array and the number of letters guessed
 
   this.guess = function (letterGuessed, numLettersGuessed, numIncorrectLeft) {
+    let correctLetter = false;
 
     //create an array to hold the user's guesses
-    let userWordGuesses =[];
+    let userWordGuesses = [];
 
     //check user guess against every letter in random word
     //if there is a match, change letter guessed is true
@@ -46,21 +48,27 @@ let Word = function (randomWord, letterGuessed, letterCount) {
     //if there is no match, push an underscore
 
     //check if letter guessed is in the word
-    
-    let correctLetter = false;
+
     for (i = 0; i < this.letters.length; i++) {
-      this.letters[i].guessCharacter(letterGuessed, numLettersGuessed);
-      if (this.letters[i].wasLetterGuessed) {
-        numLettersGuessed++;
-        correctLetter = true;
-      };
-      let charInUserWord = this.letters[i].userWord();
-      userWordGuesses.push(charInUserWord);
+      // if was letter guessed true, no need to check again
+
+      if (!this.letters[i].wasLetterGuessed) {
+        this.letters[i].guessCharacter(letterGuessed, numLettersGuessed);
+        if (this.letters[i].wasLetterGuessed) {
+          numLettersGuessed++;
+          correctLetter = true;
+        };
+      }
+        let charInUserWord = this.letters[i].userWord();
+        userWordGuesses.push(charInUserWord);
+      
     };
-    if(!correctLetter) {
+
+    if (!correctLetter) {
       numIncorrectLeft--;
       console.log(`incorrect guess - number of guesses left is ${numIncorrectLeft}`);
     };
+
     let returnGuesses = [userWordGuesses, numLettersGuessed, numIncorrectLeft];
     return returnGuesses;
   };
